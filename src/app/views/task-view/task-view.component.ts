@@ -16,21 +16,18 @@ export class TaskViewComponent implements OnInit {
 
   ngOnInit() {
     this.getAllList();
-  
-    }
-  
-   
-    getAllList(){
-      
-      this._taskService.getAllList().subscribe(response => {
-        this.lists = response;
-        console.log("response", response, typeof response)
-      }, error =>{
-        console.log(error);
-        
-      })
-      
-    }
-  
-  
+
+  }
+
+
+  getAllList() {
+    this._taskService.getAllList().subscribe(response => {
+      this.lists = response;
+      console.log("response", response, typeof response)
+    }, error => {
+      console.log(error);
+    })
+  }
+
+
 }

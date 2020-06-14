@@ -1,18 +1,83 @@
 <div class="container mt-4 ml-5">
-    <div class="col-md-11 col-sm-11 border border-secondary-3">
-     
-      <button class="btn bg-danger text-white" style="float: right;"  >Create List &nbsp; <i class="fa fa-plus-square" aria-hidden="true"></i></button>
-      <div class="col-md-12 col-sm-12 p-3 " style="clear: both;">
-        <h3> List Names:</h3>
-        <a style="text-decoration: none; color: black;"  routerLink="/taskView/task">
-        <ul  *ngFor="let list of lists; let i = index">
-            <li id="singleList{{i}}" class="list-group-item" (click)="getTask(list._id)">
-              {{list.title}}
-              </li>
-              
-          </ul>
-          </a>
-      </div>
-     
+  <div class="col-md-11 col-sm-11 border border-secondary-3">
+
+    <button mat-raised-button color="warn" style="float: right;" (click)="showDialog()">Create List &nbsp; <i
+        class="fa fa-plus-square" aria-hidden="true"></i></button>
+    <div class="col-md-12 col-sm-12 p-3 " style="clear: both;">
+      <h3> List Names:</h3>
+
+      <ul *ngFor="let list of lists; let i = index">
+        <a style="text-decoration: none; color: black;" routerLink="/taskView/task">
+          <li id="singleList{{i}}" class="list-group-item hover-style" (click)="getTask(list._id)">
+            {{list.title}}
+          </li>
+        </a>
+        <div class="btn-group update-delete-button" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-sm btn-primary update-button rounded" pTooltip="Update List Name"
+            tooltipPosition="bottom"> Update </button>
+          <button class="btn btn-sm btn-danger rounded ml-2" (click)="showConfirm(list.title, list._id)" pTooltip="Delete list"
+            tooltipPosition="bottom"> <i class="fa fa-trash" aria-hidden="true"></i></button>
+        </div>
+
+      </ul>
+
     </div>
+
   </div>
+</div>
+
+
+
+<p-dialog header="Create List" [(visible)]="display" [modal]="true" [style]="{width: '30%'}" [baseZIndex]="10000">
+  <form #form="ngForm">
+    <mat-form-field class="list-form">
+      <mat-label>List Name</mat-label>
+      <input matInput type="text" name="listname" required #listname="ngModel" [(ngModel)]="listName">
+
+      <button mat-button *ngIf="listName" matSuffix mat-icon-button aria-label="Clear" (click)="listName=''">X</button>
+    </mat-form-field>
+    <div *ngIf="listname.invalid && form.submitted && (listname.dirty || listname.touched && form.submitted)"
+      class="alert alert-danger">
+
+      <div *ngIf="listname.errors.required">
+        Name is required.
+      </div>
+      <div *ngIf="listname.errors.minlength">
+        Name must be at least 4 characters long.
+      </div>
+
+
+    </div>
+    <br>
+    <button mat-flat-button class="btn btn-sm" color="primary" (click)="createList(form)">Create</button>
+  </form>
+</p-dialog>
+
+<!-- delete box -->
+
+<p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="p-grid ">
+            <div class="p-col-6">
+                <button type="button"  mat-button (click)="onConfirm()" label="Yes" class="btn btn-block  text-white bg-success">Yes</button>
+            </div>
+            <br>
+            <div class="p-col-6">
+                <button type="button" mat-button (click)="onReject()" label="No" class="bg-danger text-white btn-block">No</button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+<!-- List Toast -->
+<p-toast styleClass="custom-toast" key="custom" position="bottom-center" [showTransformOptions]="'translateX(-100%)'"></p-toast>
+
+<!-- Delete toast -->
+<p-toast styleClass="custom-toast" key="custom_delete" position="bottom-center" [showTransformOptions]="'translateX(-100%)'"></p-toast>
+
+

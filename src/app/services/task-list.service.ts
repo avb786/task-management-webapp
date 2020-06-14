@@ -35,4 +35,24 @@ export class TaskListService {
       
     }
 
+    createList(body){
+      let postUrl = this._webService.linkGeneration(environment.taskServiceManagement.createList);
+      return this._http.post(postUrl, body)
+      .pipe(map(response => {
+        return response;
+      }));
+      
+    }
+
+    deleteList(id) {
+      let deleteUrl = this._webService.linkGeneration(environment.taskServiceManagement.deleteList);
+      deleteUrl = deleteUrl.replace(':listId', id);
+      console.log(deleteUrl);
+      
+      return this._http.delete(deleteUrl)
+      .pipe(map(response => {
+        return response;
+      }));
+    }
+
 }
