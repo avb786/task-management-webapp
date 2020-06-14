@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "task-management-webapp"
+    }
+  },
+  "defaultProject": "task-management-webapp",
+  "cli": {
+    "analytics": "8b6a086d-8b44-40c4-b163-991793ce6c65"
+  }
 }

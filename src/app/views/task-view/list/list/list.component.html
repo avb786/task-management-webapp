@@ -1,0 +1,18 @@
+<div class="container mt-4 ml-5">
+    <div class="col-md-11 col-sm-11 border border-secondary-3">
+     
+      <button class="btn bg-danger text-white" style="float: right;"  >Create List &nbsp; <i class="fa fa-plus-square" aria-hidden="true"></i></button>
+      <div class="col-md-12 col-sm-12 p-3 " style="clear: both;">
+        <h3> List Names:</h3>
+        <a style="text-decoration: none; color: black;"  routerLink="/taskView/task">
+        <ul  *ngFor="let list of lists; let i = index">
+            <li id="singleList{{i}}" class="list-group-item" (click)="getTask(list._id)">
+              {{list.title}}
+              </li>
+              
+          </ul>
+          </a>
+      </div>
+     
+    </div>
+  </div>
