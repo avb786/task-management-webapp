@@ -67,16 +67,14 @@ export class TaskComponent implements OnInit {
   taskCheckedValue(taskId, taskCompleted, event) {
     const body = {};
     body[APP_CONSTANTS.TASK_COMPLETED] = event.target.checked;
-    console.log("EVENT",event.target.checked);
-    
+    console.log("EVENT", event.target.checked);    
     this._taskService.updateTask(body, this.listId, taskId).subscribe(response => {
       if (response !== undefined) {
         this.geTaskById(this.listId);
-      }
-      
+      }      
     }, error => {
       console.log("CHECK-TASK", error);
-    })
+    });
 
   }
 
@@ -92,32 +90,30 @@ export class TaskComponent implements OnInit {
         }
       }, error => {
         console.log("CHECK-UPDATE-TASK", error);
-      })
+      });
 
     }
   }
 
   deleteTaskById(taskId) {
-    this._taskService.deleteTask(this.listId, taskId).subscribe(response =>{
+    this._taskService.deleteTask(this.listId, taskId).subscribe(response => {
       console.log(response);
       this.geTaskById(this.listId);
 
-    }, error =>{
-        console.log("DELETE-TASK", error);
-        
-    })
+    }, error => {
+        console.log("DELETE-TASK", error);        
+    });
   }
 
   showUpdateDialog(title, id) {
     this.UpdateDisplay = true;
     this.UpdateTaskName = title;
-    this.UpdateTaskId = id;
-  
+    this.UpdateTaskId = id;  
   }
 
   showConfirm(title, id) {
     this.messageService.clear();
-    this.messageService.add({key: 'c', sticky: true, severity:'warn', summary:'Are you sure want '+title+' to delete?', detail:'Confirm to proceed'});
+    this.messageService.add({key: 'c', sticky: true, severity: 'warn', summary: 'Are you sure want ' + title + ' to delete?', detail: 'Confirm to proceed'});
     this.deleteTaskId = id;
     this.deleteTaskTitle = title;
 }
@@ -136,14 +132,14 @@ onReject() {
   }
 
   showCustomTaskMessage() {
-    this.messageService.add({key: 'custom', severity:'success', summary:'CREATE:' , detail: this.taskName + ' is created.' });
+    this.messageService.add({key: 'custom', severity: 'success', summary: 'CREATE:' , detail: this.taskName + ' is created.' });
   }
-  
+   
   showCustomUpdateListMessage() {
-    this.messageService.add({key: 'custom_update', severity:'success', summary:'UPDATE:' , detail: this.UpdateTaskName + ' is updated.' });
+    this.messageService.add({key: 'custom_update', severity: 'success', summary: 'UPDATE:' , detail: this.UpdateTaskName + ' is updated.' });
   }
 
   showCustomListMessageDeleted() {
-    this.messageService.add({key: 'custom_delete', severity:'error', detail: this.deleteTaskTitle + ' is deleted.', summary:'DELETE:'});
+    this.messageService.add({key: 'custom_delete', severity: 'error', detail: this.deleteTaskTitle + ' is deleted.', summary: 'DELETE:'});
   }
 }
