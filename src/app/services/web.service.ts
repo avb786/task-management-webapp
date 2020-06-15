@@ -13,6 +13,6 @@ export class WebService {
   }
 
   public linkGeneration(param){
-    return `${this.ROOT_URL}/${param}`
+    return `${this.ROOT_URL}${param}`
   }
 }

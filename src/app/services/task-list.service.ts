@@ -55,4 +55,49 @@ export class TaskListService {
       }));
     }
 
+    UpdateList(body, id) {
+      let updateUrl = this._webService.linkGeneration(environment.taskServiceManagement.deleteList);
+      updateUrl = updateUrl.replace(':listId', id);
+          
+      return this._http.put(updateUrl, body)
+      .pipe(map(response => {
+        return response;
+      }));
+    }
+
+    createTask(body, id){
+      let postUrl = this._webService.linkGeneration(environment.taskServiceManagement.createTask);
+      postUrl = postUrl.replace(':listId', id);
+      return this._http.post(postUrl, body)
+      .pipe(map(response => {
+        return response;
+      }));
+      
+    }
+
+    updateTask(body, listId, taskId){
+      let postUrl = this._webService.linkGeneration(environment.taskServiceManagement.updateTask);
+      postUrl = postUrl.replace(':listId', listId);
+      postUrl = postUrl.replace(':taskId', taskId);
+      return this._http.put(postUrl, body)
+      .pipe(map(response => {
+        return response;
+      }));
+      
+    }
+    
+
+    deleteTask(listId, taskId) {
+      let deleteUrl = this._webService.linkGeneration(environment.taskServiceManagement.deleteATask);
+      deleteUrl = deleteUrl.replace(':listId', listId);
+      deleteUrl = deleteUrl.replace(':taskId', taskId);
+      console.log(deleteUrl);
+      
+      return this._http.delete(deleteUrl)
+      .pipe(map(response => {
+        return response;
+      }));
+    }
+
+
 }

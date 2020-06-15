@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TaskListService } from 'src/app/services/task-list.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-
-
-
+import { APP_CONSTANTS } from 'src/app/constants/app_constants';
 
 @Component({
   selector: 'app-list',
@@ -14,12 +12,15 @@ import { MessageService } from 'primeng/api';
 })
 export class ListComponent implements OnInit {
 
-  public lists: Object;
+  public lists: any;
   public tasks = Object;
   public display: boolean;
   public listName: any;
   public deleteId: any;
-  deleteTitle: any;
+  public deleteTitle: any;
+  public UpdateDisplay: boolean;
+  public UpdatelistName: any;
+  public UpdatelistId: any;
 
   constructor(
     private _taskService: TaskListService,
@@ -28,23 +29,26 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getAllList()
+    this.getAllList();
   }
 
   getAllList() {
     this._taskService.getAllList().subscribe(response => {
       this.lists = response;
-      console.log("response", response, typeof response)
+      if (typeof (Storage) !== "undefined") {
+        sessionStorage.setItem("list_length", this.lists.length);
+      }
     }, error => {
       console.log(error);
 
     })
   }
 
-  getTask(id) {
+  getTask(id, title?) {
     let LIST_ID;
     if (typeof (Storage) !== "undefined") {
       sessionStorage.setItem("listId", id);
+      sessionStorage.setItem("list_name", title);
     } else {
       LIST_ID = "Sorry, your browser does not support Web Storage...";
       window.alert(LIST_ID)
@@ -55,7 +59,7 @@ export class ListComponent implements OnInit {
   createList(form){
     if(form.valid){
     const body={};
-    body['title'] = this.listName;
+    body[APP_CONSTANTS.TITLE] = this.listName;
     this._taskService.createList(body).subscribe(response => {
       if(response !== undefined) {
           this.display = false;
@@ -69,14 +73,27 @@ export class ListComponent implements OnInit {
   }
   }
 
+  updateList(form) {
+    if(form.valid) {
+      const body = {}
+      body[APP_CONSTANTS.TITLE] = this.UpdatelistName;
+      this._taskService.UpdateList(body, this.UpdatelistId).subscribe(response => {
+          this.getAllList();
+          this.UpdateDisplay = false;
+          this.showCustomUpdateListMessage();
+          
+      }, error => {
+        console.log("Update", error);
+      })
+    }
+  }
+
   deleteListById(id) {
-    console.log("deele",id);
-    
     this._taskService.deleteList(id).subscribe(response => {
       this.getAllList();
-      
     }, error => {
-
+      console.log("Delete", error);
+      
     })
   }
 
@@ -98,15 +115,25 @@ onReject() {
 }
 
 showCustomListMessage() {
-  this.messageService.add({key: 'custom', severity:'success', summary: this.listName + ' is created.'});
+  this.messageService.add({key: 'custom', severity:'success', summary:'CREATE:' , detail: this.listName + ' is created.' });
 }
 
 showCustomListMessageDeleted() {
-  this.messageService.add({key: 'custom_delete', severity:'error', summary: this.deleteTitle + ' is deleted.'});
+  this.messageService.add({key: 'custom_delete', severity:'error', detail: this.deleteTitle + ' is deleted.', summary:'DELETE:'});
 }
 
-  showDialog() {
+showCustomUpdateListMessage() {
+  this.messageService.add({key: 'custom_update', severity:'success', summary:'UPDATE:' , detail: this.UpdatelistName + ' is updated.' });
+}
+
+showDialog() {
     this.display = true;
+}
+showUpdateDialog(title, id) {
+  this.UpdateDisplay = true;
+  this.UpdatelistName = title;
+  this.UpdatelistId = id;
+
 }
 
 }

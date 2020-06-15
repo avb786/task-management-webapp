@@ -1,0 +1,20 @@
+.create-task {
+    float: right;
+}
+
+.list-form{
+    width: 100%;
+}
+
+.task-table{
+    position: relative;
+    top: 10px;
+}
+input.task-checkbox { 
+     transform : scale(2); 
+     cursor: pointer;
+} 
+.icon-size{
+    font-size: 20px;
+    cursor: pointer;
+}

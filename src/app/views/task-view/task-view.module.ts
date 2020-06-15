@@ -16,7 +16,7 @@ import {MatIcon} from '@angular/material/icon'
 import { FormsModule } from '@angular/forms';
 import {TooltipModule} from 'primeng/tooltip';
 import {ToastModule} from 'primeng/toast';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -31,7 +31,8 @@ import {ToastModule} from 'primeng/toast';
     DialogModule,
     MatInputModule,
     TooltipModule,
-    ToastModule
+    ToastModule,
+    MatCheckboxModule
     
     
     

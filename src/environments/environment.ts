@@ -8,7 +8,10 @@ export const environment = {
     getAllList: '/lists',
     getAllTaskByListId: '/list/:listId/tasks',
     createList: '/create/list',
-    deleteList: '/list/:listId'
+    deleteList: '/list/:listId',
+    createTask: '/list/:listId/tasks',
+    updateTask: '/list/:listId/tasks/:taskId',
+    deleteATask: '/list/:listId/tasks/:taskId'
   }
 };
 

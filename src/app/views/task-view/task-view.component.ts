@@ -9,6 +9,7 @@ import { TaskListService } from 'src/app/services/task-list.service';
 export class TaskViewComponent implements OnInit {
 
   lists: any;
+  public listLength: any;
 
   constructor(
     private _taskService: TaskListService
@@ -24,6 +25,10 @@ export class TaskViewComponent implements OnInit {
     this._taskService.getAllList().subscribe(response => {
       this.lists = response;
       console.log("response", response, typeof response)
+      if (typeof (Storage) !== "undefined") {
+        sessionStorage.setItem("list_length", this.lists.length);
+      }
+      this.listLength = sessionStorage.getItem("list_length");
     }, error => {
       console.log(error);
     })
