@@ -1,5 +1,5 @@
-<div class="container mt-4 ml-5">
-  <div class="col-md-11 col-sm-11 border border-secondary-3">
+<div class="container list-container">
+  <div class="col-md-10 col-sm-10 border border-secondary-3">
 
     <button mat-raised-button color="warn" style="float: right;" (click)="showDialog()">Create List &nbsp; <i
         class="fa fa-plus-square" aria-hidden="true"></i></button>
@@ -14,7 +14,8 @@
         </a>
         <div class="btn-group update-delete-button" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-sm btn-primary update-button rounded" pTooltip="Edit List"
-            tooltipPosition="bottom" (click)="showUpdateDialog(list.title, list._id)"> <i class="fa fa-pencil-square-o text-white" aria-hidden="true"></i> </button>
+            tooltipPosition="bottom" (click)="showUpdateDialog(list.title, list._id)"> <i
+              class="fa fa-pencil-square-o text-white" aria-hidden="true"></i> </button>
           <button class="btn btn-sm btn-danger rounded ml-2" (click)="showConfirm(list.title, list._id)"
             pTooltip="Delete list" tooltipPosition="bottom"> <i class="fa fa-trash" aria-hidden="true"></i></button>
         </div>
@@ -34,7 +35,8 @@
       <mat-label>List Name</mat-label>
       <input matInput type="text" minlength='4' name="listname" required #listname="ngModel" [(ngModel)]="listName">
 
-      <button mat-button *ngIf="listName" matSuffix mat-icon-button aria-label="Clear" (click)="listName=''"><i class="fa fa-times" aria-hidden="true"></i></button>
+      <button mat-button *ngIf="listName" matSuffix mat-icon-button aria-label="Clear" (click)="listName=''"><i
+          class="fa fa-times" aria-hidden="true"></i></button>
     </mat-form-field>
     <div *ngIf="listname.invalid && form.submitted || (listname.dirty || listname.touched && form.submitted)"
       class="errors font-weight-bold text-danger">

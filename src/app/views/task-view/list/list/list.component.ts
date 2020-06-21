@@ -3,6 +3,7 @@ import { TaskListService } from 'src/app/services/task-list.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { APP_CONSTANTS } from 'src/app/constants/app_constants';
+import { UserManagementService } from 'src/app/services/user-management.service';
 
 @Component({
   selector: 'app-list',
@@ -25,22 +26,20 @@ export class ListComponent implements OnInit {
   constructor(
     private _taskService: TaskListService,
     private _router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private _userService: UserManagementService
   ) { }
 
   ngOnInit() {
-    this.getAllList();
+    // this.getAllList();
+    this.userDetail();
   }
 
-  getAllList() {
-    this._taskService.getAllList().subscribe(response => {
-      this.lists = response;
-      if (typeof (Storage) !== "undefined") {
-        sessionStorage.setItem("list_length", this.lists.length);
-      }
+  userDetail() {
+    this._userService.getUserDetail().subscribe(response => {
+      this.lists = response[0].lists;
     }, error => {
       console.log(error);
-
     })
   }
 
@@ -56,14 +55,14 @@ export class ListComponent implements OnInit {
   }
 
 
-  createList(form){
-    if(form.valid){
+  createList(form) {
+    if(form.valid) {
     const body={};
     body[APP_CONSTANTS.TITLE] = this.listName;
     this._taskService.createList(body).subscribe(response => {
       if(response !== undefined) {
           this.display = false;
-          this.getAllList();
+          this.userDetail();
           this.showCustomListMessage();
       }
     }, error => {
@@ -78,7 +77,7 @@ export class ListComponent implements OnInit {
       const body = {}
       body[APP_CONSTANTS.TITLE] = this.UpdatelistName;
       this._taskService.UpdateList(body, this.UpdatelistId).subscribe(response => {
-          this.getAllList();
+          this.userDetail();
           this.UpdateDisplay = false;
           this.showCustomUpdateListMessage();
           
@@ -90,7 +89,7 @@ export class ListComponent implements OnInit {
 
   deleteListById(id) {
     this._taskService.deleteList(id).subscribe(response => {
-      this.getAllList();
+      this.userDetail();
     }, error => {
       console.log("Delete", error);
       

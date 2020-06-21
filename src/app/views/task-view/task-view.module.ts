@@ -18,10 +18,11 @@ import {TooltipModule} from 'primeng/tooltip';
 import {ToastModule} from 'primeng/toast';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
-  declarations: [TaskViewComponent, ListComponent, TaskComponent],
+  declarations: [TaskViewComponent, ListComponent, TaskComponent, DashboardComponent],
   imports: [
     CommonModule,
     FormsModule,

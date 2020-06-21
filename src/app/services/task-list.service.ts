@@ -7,34 +7,37 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TaskListService {
+  public user_id = sessionStorage.getItem('user_id');
 
   constructor(
     private _webService: WebService,
     private _http: HttpClient
     ) { }
-
-    getAllList(){
+  
+    getAllList() {
       let getUrl = this._webService.linkGeneration(environment.taskServiceManagement.getAllList);
-      return this._http.get(getUrl)
+      getUrl = getUrl.replace(':userId', this.user_id );      
+      return this._http.get(getUrl, { 'headers': this._webService.setHeadersWithParams()})
       .pipe(map(response => {
         return response;
       }));
       
     }
-
-    getTaskByList(listId){
+    getTaskByList(listId) {
       let getUrl = this._webService.linkGeneration(environment.taskServiceManagement.getAllTaskByListId);
       getUrl = getUrl.replace(':listId', listId);
-      return this._http.get(getUrl)
+      getUrl = getUrl.replace(':userId', this.user_id);
+      return this._http.get(getUrl, { headers : this._webService.setHeadersWithParams() } )
       .pipe(map(response => {
         return response;
       }));
       
     }
 
-    createList(body){
+    createList(body) {
       let postUrl = this._webService.linkGeneration(environment.taskServiceManagement.createList);
-      return this._http.post(postUrl, body)
+      postUrl = postUrl.replace(':userId', this.user_id);
+      return this._http.post(postUrl, body, { headers : this._webService.setHeadersWithParams() })
       .pipe(map(response => {
         return response;
       }));
@@ -44,9 +47,10 @@ export class TaskListService {
     deleteList(id) {
       let deleteUrl = this._webService.linkGeneration(environment.taskServiceManagement.deleteList);
       deleteUrl = deleteUrl.replace(':listId', id);
+      deleteUrl = deleteUrl.replace(':userId', this.user_id);
       console.log(deleteUrl);
       
-      return this._http.delete(deleteUrl)
+      return this._http.delete(deleteUrl, { headers : this._webService.setHeadersWithParams() })
       .pipe(map(response => {
         return response;
       }));
@@ -55,14 +59,14 @@ export class TaskListService {
     UpdateList(body, id) {
       let updateUrl = this._webService.linkGeneration(environment.taskServiceManagement.deleteList);
       updateUrl = updateUrl.replace(':listId', id);
-          
-      return this._http.put(updateUrl, body)
+      updateUrl = updateUrl.replace(':userId', this.user_id);          
+      return this._http.put(updateUrl, body, { headers : this._webService.setHeadersWithParams() })
       .pipe(map(response => {
         return response;
       }));
     }
 
-    createTask(body, id){
+    createTask(body, id) {
       let postUrl = this._webService.linkGeneration(environment.taskServiceManagement.createTask);
       postUrl = postUrl.replace(':listId', id);
       return this._http.post(postUrl, body)
@@ -72,7 +76,7 @@ export class TaskListService {
       
     }
 
-    updateTask(body, listId, taskId){
+    updateTask(body, listId, taskId) {
       let postUrl = this._webService.linkGeneration(environment.taskServiceManagement.updateTask);
       postUrl = postUrl.replace(':listId', listId);
       postUrl = postUrl.replace(':taskId', taskId);

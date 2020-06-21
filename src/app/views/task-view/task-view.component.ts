@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskListService } from 'src/app/services/task-list.service';
+import { Router } from '@angular/router';
+import { UserManagementService } from 'src/app/services/user-management.service';
 
 @Component({
   selector: 'app-task-view',
@@ -12,25 +14,31 @@ export class TaskViewComponent implements OnInit {
   public listLength: any;
 
   constructor(
-    private _taskService: TaskListService
+    private _taskService: TaskListService,
+    private _userService: UserManagementService,
+    private _router: Router
   ) { }
 
   ngOnInit() {
-    this.getAllList();
+
+  }
+  openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("menubtn").style.display = "none";
+  }
+  closeNav() {
+    document.getElementById("mySidenav").style.width = "0px";
+    document.getElementById("menubtn").style.display = "block";
 
   }
 
-
-  getAllList() {
-    this._taskService.getAllList().subscribe(response => {
-      this.lists = response;
-      console.log("response", response, typeof response)
-      if (typeof (Storage) !== "undefined") {
-        sessionStorage.setItem("list_length", this.lists.length);
-      }
-      this.listLength = sessionStorage.getItem("list_length");
+  goToLogin() {
+    this._userService.userLoginOut().subscribe(response => {
+      sessionStorage.clear();
+      this._router.navigate(['/login'])
     }, error => {
-      console.log(error);
+      console.log("LOGOUT", error);
+
     })
   }
 

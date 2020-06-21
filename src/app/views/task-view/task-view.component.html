@@ -1,36 +1,49 @@
 <div class="container-fluid card header-div">
-    <div class="row mt-1">
-        <div class="col-xs-12 col-sm-6 col-md-8">
-            <h1 class="text-warning">Task<span class="text-danger">-</span> <span class="text-primary">Port</span></h1>
-        </div>
-        <div class="col-xs-6 col-md-4">
-            <p>
-                <button type="button" mat-flat-button  color="warn">Sign in <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i></button>
-                <button type="button" mat-flat-button  class="text-white ml-2 bg-primary">Login <i class="fa fa-user" aria-hidden="true"></i></button>
-              </p>
-        </div>
+  <div class="row mt-1">
+    <div class="col-xs-12 col-sm-6 col-md-8">
+      <a style="text-decoration: none;" routerLink="/taskView">
+        <h1 class="text-warning " routerLink="/taskView" style="cursor: pointer;">Task<span class="text-danger">-</span>
+          <span class="text-primary">Port</span></h1>
+      </a>
     </div>
+    <div class="col-xs-6 col-md-4">
+      <p>
+        <button type="button" mat-flat-button color="warn">Sign in <i class="fa fa-sign-in fa-lg"
+            aria-hidden="true"></i></button>
+        <button type="button" routerLink="/login" mat-flat-button class="text-white ml-2 bg-primary">Login <i
+            class="fa fa-user" aria-hidden="true"></i></button>
+        <button type="button" (click)="goToLogin()" mat-flat-button class="text-white ml-2 bg-primary">Logout <i
+            class="fa fa-user" aria-hidden="true"></i></button>
+      </p>
+    </div>
+  </div>
 
 </div>
 
-<div class="card container col-md-8 text-center">
-  <div class="card-header">
-  Total List
-  </div>
-  <div class="card-body">
-    <h1 class="card-title"><strong>LISTS :</strong></h1>
-    <p class="card-text" style="font-size: 30px;"> {{listLength}} </p>
-  </div>
-  <div class="card-footer text-muted">
-    2 days ago
-  </div>
+<div id="mySidenav" class="sidenav border">
+  <a routerLink="/taskView">
+    <h1 class="text-warning" style="font-size: 40px; cursor: pointer;">Task<span class="text-danger">-</span> <span
+        class="text-primary">Port</span></h1>
+  </a>
+  <a href="javascript:void(0)" class="closebtn border-bottom" (click)="closeNav()">&nbsp;&nbsp;&nbsp;&nbsp;
+    <i class="fa fa-angle-double-left" aria-hidden="true"></i><i class="fa fa-angle-double-left" aria-hidden="true"></i>
+    close navbar <i class="fa fa-angle-double-left" aria-hidden="true"></i><i class="fa fa-angle-double-left"
+      aria-hidden="true"></i></a>
+  <a class="border boder-primary rounded" routerLink="/taskView"><i class="fa fa-home text-success"
+      aria-hidden="true"></i> Home</a>
+  <a class="border rounded" routerLink="/taskView/list"><i class="fa fa-list-alt text-muted" aria-hidden="true"></i>
+    Show List</a>
 </div>
 
-<div class="container ">
-  <div class="col-md-12 col-sm-12">
-    <div id="listButton" style="width: 11%;"   class=" bg-primary p-2 col-md-2 col-sm-2 ml-5 border rounded" >
-       <a style="text-decoration: none;" class="text-white" routerLink="/taskView/list">Show List >></a> </div>
-            <router-outlet></router-outlet>
-  </div>
+<div>
+  <span id="menubtn" class="btn  bg-light menu-button" (click)="openNav()">Menu <i class="fa fa-bars"
+      aria-hidden="true"></i></span>
+
 </div>
 
+
+<div class="container main-container">
+  <div class="col-md-12 col-sm-12 main-component">
+    <router-outlet></router-outlet>
+  </div>
+</div>
