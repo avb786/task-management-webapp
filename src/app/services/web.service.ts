@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 @Injectable({
@@ -13,6 +13,15 @@ export class WebService {
   }
 
   public linkGeneration(param){
-    return `${this.ROOT_URL}/${param}`
+    return `${this.ROOT_URL}${param}`
+  }
+
+  public setHeadersWithParams() {
+    let headers = new HttpHeaders();
+    const authToken = JSON.parse(sessionStorage.getItem('user_details'));
+    headers = headers.set('content-type', 'application/json')
+    headers = headers.set('Authorization', 'Bearer ' + authToken.token);
+    console.log('HEADERS', headers);
+    return headers;
   }
 }

@@ -1,3 +1,120 @@
-<div class="container mt-4 ml-5 bg-danger">
-    
+<div class="container  ml-5 col-md-11 col-sm-11 border">
+  <button mat-raised-button class="create-task" (click)="showCreateDialog()" color="warn"> Create task</button>
+  <h2 class="text-center"> <b>List Name: </b> <u>{{listName}}</u> </h2>
+  <table class="table task-table">
+    <thead>
+      <tr>
+        <th *ngFor="let column of headers">
+          {{column}}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{task.title}}</td>
+        <td>
+          <span class="text-danger" *ngIf="task.completed === false"> Not Completed</span>
+          <span class="text-success" *ngIf="task.completed === true"> Completed</span>
+        </td>
+        <td id="taskCompleted{{i}}">
+            <input type="checkbox" class="task-checkbox ml-3"  [checked]="task.completed" (click)="taskCheckedValue(task._id, task.completed, $event)" >
+        </td>
+        <td>
+            <span class="icon-size" pTooltip="Edit task" (click)="showUpdateDialog(task.title, task._id)" tooltipPosition="bottom"><i class="fa fa-pencil-square-o text-primary" aria-hidden="true"></i></span>
+        </td>
+        <td>
+            <span class="icon-size" pTooltip="Delete task" (click)="showConfirm(task.title, task._id)" tooltipPosition="bottom"><i class="fa fa-trash text-danger" aria-hidden="true"></i></span>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
 </div>
+
+<p-dialog header="Create Task" [(visible)]="displayCreateTask" [modal]="true" [style]="{width: '30%'}" [baseZIndex]="10000">
+    <form #form="ngForm">
+      <mat-form-field class="list-form">
+        <mat-label>Task Name</mat-label>
+        <input matInput type="text" minlength='4' name="taskname" required #taskname="ngModel" [(ngModel)]="taskName">
+  
+        <button mat-button *ngIf="taskName" matSuffix mat-icon-button aria-label="Clear" (click)="taskName=''"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </mat-form-field>
+      <div *ngIf="taskname.invalid && form.submitted || (taskname.dirty || taskname.touched && form.submitted)"
+        class="errors font-weight-bold text-danger">
+  
+        <div *ngIf="taskname.errors?.required">
+          List name is required.
+        </div>
+        <div *ngIf="taskname.errors?.minlength">
+          List name must be at least 4 characters long.
+        </div>
+  
+      </div>
+      <br>
+      <button mat-flat-button class="btn btn-block" color="primary" (click)="createTask(form)">Create</button>
+    </form>
+  </p-dialog>
+
+<!-- Update Task -->
+<p-dialog header="Update Task" [(visible)]="UpdateDisplay" [modal]="true" [style]="{width: '30%'}" [baseZIndex]="10000">
+    <form #form1="ngForm">
+      <mat-form-field class="list-form">
+        <mat-label>List Name</mat-label>
+        <input matInput type="text" minlength='4' name="updatelistname" required #updatetaskname="ngModel"
+          [(ngModel)]="UpdateTaskName">
+  
+        <button mat-button *ngIf="UpdateTaskName" matSuffix mat-icon-button aria-label="Clear"
+          (click)="UpdateTaskName=''"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </mat-form-field>
+      <div
+        *ngIf="updatetaskname.invalid && form1.submitted || (updatetaskname.dirty || updatetaskname.touched && form1.submitted)"
+        class="errors font-weight-bold text-danger">
+  
+        <div *ngIf="updatetaskname.errors?.required">
+          List name is required.
+        </div>
+        <div *ngIf="updatetaskname.errors?.minlength">
+          List name must be at least 4 characters long.
+        </div>
+      </div>
+      <br>
+      <button mat-flat-button class="btn btn-block bg-primary text-white" (click)="updateTask(form1)">Update</button>
+    </form>
+  </p-dialog>
+
+<!-- delete box -->
+
+<p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+      <div style="text-align: center">
+        <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+        <h3>{{message.summary}}</h3>
+        <p>{{message.detail}}</p>
+      </div>
+      <div class="p-grid ">
+        <div class="p-col-6">
+          <button type="button" mat-button (click)="onConfirm()" label="Yes"
+            class="btn btn-block  text-white bg-success">Yes</button>
+        </div>
+        <br>
+        <div class="p-col-6">
+          <button type="button" mat-button (click)="onReject()" label="No"
+            class="bg-danger text-white btn-block">No</button>
+        </div>
+      </div>
+    </ng-template>
+  </p-toast>
+  
+
+  <!-- Create toast -->
+  <p-toast styleClass="custom-toast" key="custom" position="bottom-center" [showTransformOptions]="'translateX(-100%)'">
+</p-toast>
+ 
+<!-- Updated Task Toast -->
+<p-toast styleClass="custom-toast" key="custom_update" position="bottom-center"
+  [showTransformOptions]="'translateX(-100%)'"></p-toast>
+
+ <!-- Delete Task Toast -->
+  <p-toast styleClass="custom-toast" key="custom_delete" position="bottom-center"
+  [showTransformOptions]="'translateX(-100%)'"></p-toast>
