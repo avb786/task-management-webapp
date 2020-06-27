@@ -8,7 +8,8 @@ import { UserManagementService } from 'src/app/services/user-management.service'
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  lists: any;
+  public lists: any;
+  public lastElement: any;
 
 
   constructor(
@@ -17,18 +18,23 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.getAllList();
-    this.userDetail();
+    this.getAllList();
     
   }
-
-  userDetail() {
-    this._userService.getUserDetail().subscribe(response => {
-      console.log(response);
-      this.lists = response[0].lists;
+  getAllList() {
+    this._taskService.getAllList().subscribe(response => {
+      console.log("LISTSTSTS", response[0].total_lists);
+      this.lists = response[0].total_lists;
+     const lastTime = response[0].total_lists.length - 1;
+     this.lastElement = response[0].total_lists[lastTime];
+     console.log("PEDEDE", this.lastElement);
+     
       
     }, error => {
-      console.log(error);
+      console.log("ERROR IN ALL LIST", error);
+      
     })
   }
+
+  
 }

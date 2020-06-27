@@ -16,7 +16,8 @@ export const environment = {
   UserManagement: {
     userSignin: '/signin' ,
     userSignOut: '/signout',
-    getUserDetail: '/user/:userId'
+    getUserDetail: '/user/:userId',
+    userSignUp: '/signup'
   }
 };
 

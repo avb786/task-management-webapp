@@ -31,15 +31,16 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.getAllList();
-    this.userDetail();
+    this.getAllList();
   }
-
-  userDetail() {
-    this._userService.getUserDetail().subscribe(response => {
-      this.lists = response[0].lists;
+  getAllList() {
+    this._taskService.getAllList().subscribe(response => {
+      console.log("LISTSTSTS", response[0].total_lists);
+      this.lists = response[0].total_lists;
+      
     }, error => {
-      console.log(error);
+      console.log("ERROR IN ALL LIST", error);
+      
     })
   }
 
@@ -62,7 +63,7 @@ export class ListComponent implements OnInit {
     this._taskService.createList(body).subscribe(response => {
       if(response !== undefined) {
           this.display = false;
-          this.userDetail();
+          this.getAllList();
           this.showCustomListMessage();
       }
     }, error => {
@@ -77,7 +78,7 @@ export class ListComponent implements OnInit {
       const body = {}
       body[APP_CONSTANTS.TITLE] = this.UpdatelistName;
       this._taskService.UpdateList(body, this.UpdatelistId).subscribe(response => {
-          this.userDetail();
+          this.getAllList();
           this.UpdateDisplay = false;
           this.showCustomUpdateListMessage();
           
@@ -89,7 +90,7 @@ export class ListComponent implements OnInit {
 
   deleteListById(id) {
     this._taskService.deleteList(id).subscribe(response => {
-      this.userDetail();
+      this.getAllList();
     }, error => {
       console.log("Delete", error);
       
