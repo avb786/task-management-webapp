@@ -8,10 +8,10 @@
     </div>
     <div class="col-xs-6 col-md-4">
       <p>
-        <button type="button" mat-flat-button color="warn">Sign in <i class="fa fa-sign-in fa-lg"
-            aria-hidden="true"></i></button>
-        <button type="button" routerLink="/login" mat-flat-button class="text-white ml-2 bg-primary">Login <i
-            class="fa fa-user" aria-hidden="true"></i></button>
+        <span *ngIf="signinButt"> <button type="button" mat-flat-button color="warn">Sign in <i class="fa fa-sign-in fa-lg"
+            aria-hidden="true"></i></button></span>
+        <span *ngIf = "loginButt"><button type="button" routerLink="/login" mat-flat-button class="text-white ml-2 bg-primary">Login <i
+            class="fa fa-user" aria-hidden="true"></i></button></span>
         <button type="button" (click)="goToLogin()" mat-flat-button class="text-white ml-2 bg-primary">Logout <i
             class="fa fa-user" aria-hidden="true"></i></button>
       </p>
@@ -22,7 +22,7 @@
 
 <div id="mySidenav" class="sidenav border">
   <a routerLink="/taskView">
-    <h1 class="text-warning" style="font-size: 40px; cursor: pointer;">Task<span class="text-danger">-</span> <span
+    <h1 class="text-warning mt-3" style="font-size: 30px; cursor: pointer;">Task<span class="text-danger">-</span> <span
         class="text-primary">Port</span></h1>
   </a>
   <a href="javascript:void(0)" class="closebtn border-bottom" (click)="closeNav()">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -47,3 +47,6 @@
     <router-outlet></router-outlet>
   </div>
 </div>
+
+<p-toast styleClass="custom-toast" key="custom" position="bottom-center"
+  [showTransformOptions]="'translateX(-100%)'"></p-toast>

@@ -1,0 +1,128 @@
+<div class="container-fluid">
+  <div class="container">
+    <div class="col-md-12 col-sm-12">
+      <img src="~/../assets/logo.png" class="img-fluid offset-md-4 logo-img" alt="Responsive image">
+      <h1 class="text-center mt-2 ">
+        Register with us & Create your tasks
+      </h1>
+      <div class="col-md-8 col-sm-8 offset-md-2">
+        <form #form="ngForm" novalidate>
+          <div class="card">
+            <div class="card-body form-body">
+              <div class="input-containers">
+                <label class="labels">First Name: </label><br>
+                <input type="text" name="firstName" pattern="[a-zA-Z][a-zA-Z ]+" [(ngModel)]="userFirstName" required #ngModel #fname="ngModel" placeholder="Enter your first name">
+                <div class="text-danger font-weight-bold" *ngIf="fname.invalid && form.submitted || fname.touched ">
+                    <p *ngIf="fname.errors?.required">
+                        *First name is required.
+                    </p>
+                    <p *ngIf="fname.errors?.pattern">
+                        *Only Alphabets are allowed with atleast 2 char.
+                    </p>
+                </div>
+              </div>
+              <div class="input-containers">
+                <label class="labels">Last Name: </label><br>
+                <input type="text" name="LastName" pattern="[a-zA-Z][a-zA-Z ]+" [(ngModel)]="userLastName" required #ngModel #lname="ngModel" placeholder="Enter your last name" required>
+                <div class="text-danger font-weight-bold" *ngIf="lname.invalid && form.submitted || lname.touched ">
+                    <p *ngIf="lname.errors?.required">
+                        *Last name is required.
+                    </p>
+                    <p *ngIf="lname.errors?.pattern">
+                        *Only Alphabets are allowed with atleast 2 char.
+                    </p>
+                </div>
+              </div>
+              <div class="input-containers">
+                <label class="labels">Email Address: </label><br>
+                <input type="text" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [(ngModel)]="userEmailName"  #ngModel #email="ngModel" name="email" placeholder="Enter your Email" required>
+                <div class="text-danger font-weight-bold" *ngIf="email.invalid && form.submitted || email.touched ">
+                    <p *ngIf="email.errors?.required">
+                        *Email address is required.
+                    </p>
+                    <p *ngIf="email.errors?.pattern">
+                        *Enter a valid email address.(<small><b>joe@abc.com</b></small>)
+                    </p>
+                </div>  
+            </div>
+              <div class="input-containers">
+                <label class="labels">Password: </label><br>
+                <span *ngIf="!showpassword" (click)="showPass()"><i class="fa fa-eye-slash hide-pass"
+                    aria-hidden="true"></i></span>
+                <span *ngIf="showpassword" (click)="hidePass()"><i class="fa fa-eye hide-pass"
+                    aria-hidden="true"></i></span>
+                <input type="text" name="password" [(ngModel)]="userPassword"  #ngModel #password="ngModel" type="password" pPassword [(ngModel)]="passwordDetails"
+                  placeholder="Enter your password" [showPassword]="showpassword" required>
+                  <div class="text-danger font-weight-bold" *ngIf="password.invalid && form.submitted || password.touched ">
+                    <p *ngIf="password.errors?.required">
+                        *Password is required.
+                    </p>
+                    <!-- <p *ngIf="password.errors?.pattern">
+                        *Enter a valid password
+                    </p> -->
+                </div> 
+              </div>
+              <div class="input-containers">
+                <label class="labels">Contact Number: </label><br>
+                <input type="text" name="contact" style="width: 520px;" placeholder="Enter your contact number" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in'}"
+                  (hasError)="hasError($event)" (ng2TelOutput)="getNumber($event)"
+                  (intlTelInputObject)="telInputObject($event)" (countryChange)="onCountryChange($event)" required />
+                <br>
+                <span class="text-danger" *ngIf="!contactError">*Please Enter a valid Number</span>
+              </div>
+              <div class="input-containers">
+                <label class="labels">Date of Birth: </label><br>
+                <mat-form-field class="example-full-width">
+                  <mat-label>MM/DD/YY</mat-label>
+                  <input matInput disabled [min]="minDate" required [max]="maxDate" (keypress)="isNumber($event)" (dateInput)="addDateEvent($event)" [matDatepicker]="picker" style="border: none;">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker disabled="false"></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <!-- <div class="text-danger font-weight-bold" *ngIf="date.invalid && form.submitted || date.touched ">
+                <p *ngIf="date.errors?.required">
+                    *Date is required.
+                </p>
+            </div>  -->
+
+              <div class="input-containers">
+                <label class="labels">Select your gender: </label><br>
+                <div class="p-grid" style="width:250px;margin-bottom:10px;font-size: 17px;">
+                  <div class="p-col-12 mt-2">
+                    <p-radioButton name="group2" value="male" label="Male" [(ngModel)]="genderValue" inputId="preopt1">
+                    </p-radioButton>
+                  </div>
+                  <div class="p-col-12 mt-2">
+                    <p-radioButton name="group2" value="female" label="Female" [(ngModel)]="genderValue"
+                      inputId="preopt2"></p-radioButton>
+                  </div>
+                  <div class="p-col-12 mt-2">
+                    <p-radioButton name="group2" value="others" label="Others" [(ngModel)]="genderValue"
+                      inputId="preopt3"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="input-containers">
+                <div>
+                  <input class="terms mt-1" type="checkbox" name="terms"  [(ngModel)]="termAndCondidtion"  #ngModel #tac="ngModel" required />
+                  <span class="ml-4"> *I accept all the terms and conditions</span>
+                  <div class="text-danger font-weight-bold" *ngIf="tac.invalid && form.submitted || tac.touched ">
+                    <p *ngIf="tac.errors?.required">
+                        *Accept the Terms and Condition.
+                    </p>
+                </div> 
+                </div>
+              </div>
+              <br>
+              <button class="btn btn-block bg-primary text-white" (click)="saveUserData(form)" >Create Account</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast styleClass="custom-toast" key="custom_created" position="bottom-center"
+  [showTransformOptions]="'translateX(-100%)'"></p-toast>

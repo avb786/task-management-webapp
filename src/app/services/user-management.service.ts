@@ -39,4 +39,12 @@ export class UserManagementService {
       return response;
     }));
   }
+
+  userSignUp(body) {
+    let postUrl = this._webService.linkGeneration(environment.UserManagement.userSignUp);
+    return this._http.post(postUrl, body)
+    .pipe(map(response => {
+      return response;
+    }));
+  }
 }
