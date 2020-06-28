@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
      
       
     }, error => {
+      window.location.reload();
       console.log("ERROR IN ALL LIST", error);
       
     })

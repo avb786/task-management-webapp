@@ -35,9 +35,7 @@ export class ListComponent implements OnInit {
   }
   getAllList() {
     this._taskService.getAllList().subscribe(response => {
-      console.log("LISTSTSTS", response[0].total_lists);
       this.lists = response[0].total_lists;
-      
     }, error => {
       console.log("ERROR IN ALL LIST", error);
       
@@ -65,6 +63,7 @@ export class ListComponent implements OnInit {
           this.display = false;
           this.getAllList();
           this.showCustomListMessage();
+          
       }
     }, error => {
         console.log(error);
@@ -134,6 +133,13 @@ showUpdateDialog(title, id) {
   this.UpdatelistName = title;
   this.UpdatelistId = id;
 
+}
+onSubmit(form) {
+  if(form.valid) {
+    console.log("---",form);
+    
+    form.reset();
+  }
 }
 
 }

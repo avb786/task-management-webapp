@@ -7,14 +7,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class WebService {
   readonly ROOT_URL;
+  readonly HERUKO_URL;
 
   constructor(private _http: HttpClient) { 
     this.ROOT_URL = 'http://localhost:3000/api/taskmgmt';
+    this.HERUKO_URL = '/api/taskmgmt';
   }
 
   public linkGeneration(param){
-    return `${this.ROOT_URL}${param}`
+    // return `${this.ROOT_URL}${param}`;
+    return `${this.HERUKO_URL}${param}`;
   }
+  
 
   public setHeadersWithParams() {
     let headers = new HttpHeaders();
