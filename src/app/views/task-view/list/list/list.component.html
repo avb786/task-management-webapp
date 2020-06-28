@@ -30,7 +30,7 @@
 
 
 <p-dialog header="Create List" [(visible)]="display" [modal]="true" [style]="{width: '30%'}" [baseZIndex]="10000">
-  <form #form="ngForm">
+  <form #form="ngForm" novalidate (ngSubmit)="onSubmit(form)">
     <mat-form-field class="list-form">
       <mat-label>List Name</mat-label>
       <input matInput type="text" minlength='4' name="listname" required #listname="ngModel" [(ngModel)]="listName">

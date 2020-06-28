@@ -1,7 +1,7 @@
 <div class="container  ml-5 col-md-11 col-sm-11 border">
   <button mat-raised-button class="create-task" (click)="showCreateDialog()" color="warn"> Create task</button>
   <h2 class="text-center"> <b>List Name: </b> <u>{{listName}}</u> </h2>
-  <table class="table task-table">
+  <table *ngIf="tasks.length > 0" class="table task-table">
     <thead>
       <tr>
         <th *ngFor="let column of headers">
