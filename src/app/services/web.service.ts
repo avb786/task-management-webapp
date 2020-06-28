@@ -11,7 +11,7 @@ export class WebService {
 
   constructor(private _http: HttpClient) { 
     this.ROOT_URL = 'http://localhost:3000/api/taskmgmt';
-    this.HERUKO_URL = '/api/taskmgmt';
+    this.HERUKO_URL = 'https://task-webapp.herokuapp.com/api/taskmgmt';
   }
 
   public linkGeneration(param){
