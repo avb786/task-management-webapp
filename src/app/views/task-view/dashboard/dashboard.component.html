@@ -1,4 +1,4 @@
-<div class="card container col-md-8 text-center">
+<div *ngIf="role === 'USER'" class="card container col-md-8 text-center">
     <div class="card-header">
       Total List
     </div>
@@ -9,5 +9,33 @@
     <div class="card-footer text-muted">
      Last list created at : {{lastElement.createdAt | date}}
     </div>
+  </div>
+  
+  <div *ngIf="role === 'ADMIN'" class="card container col-md-8 text-center">
+    <div class="card-header">
+      Total Lists
+    </div>
+    <div class="card-body">
+      <h1 class="card-title"><strong>LISTS :</strong></h1>
+      <p class="card-text" style="font-size: 30px;"> {{getAllListsLength.length}} </p>
+    </div>
+    <div class="card-footer text-muted">
+     Last list created at : {{lastElementAdminsList.createdAt | date}}
+    </div>
+
+    
+  </div>
+
+  <div *ngIf="role === 'ADMIN'" class="card container col-md-8 text-center mt-3">
+  <div class="card-header">
+    Total Tasks
+  </div>
+  <div class="card-body">
+    <h1 class="card-title"><strong>Tasks :</strong></h1>
+    <p class="card-text" style="font-size: 30px;"> {{getAllTasksLength.length}} </p>
+  </div>
+  <div class="card-footer text-muted">
+   Last task created at : {{lastElementAdminsTasks.createdAt | date}}
+  </div>
   </div>
   

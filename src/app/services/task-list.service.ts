@@ -100,5 +100,20 @@ export class TaskListService {
       }));
     }
 
+    getAllLists() {
+      let getUrl = this._webService.linkGeneration(environment.taskServiceManagement.getAllLists);     
+      return this._http.get(getUrl, { 'headers': this._webService.setHeadersWithParams()})
+      .pipe(map(response => {
+        return response;
+      }));
+    }
+
+    getAllTasks() {
+      let getUrl = this._webService.linkGeneration(environment.taskServiceManagement.getAllTasks);     
+      return this._http.get(getUrl, { 'headers': this._webService.setHeadersWithParams()})
+      .pipe(map(response => {
+        return response;
+      }));
+    }
 
 }

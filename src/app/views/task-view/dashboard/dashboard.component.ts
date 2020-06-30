@@ -11,6 +11,12 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class DashboardComponent implements OnInit {
   public lists: any;
   public lastElement: any;
+  public role: any;
+  public userDetail: any;
+  public getAllListsLength: any;
+  public lastElementAdminsList: any;
+  public getAllTasksLength: any;
+  public lastElementAdminsTasks: any;
 
 
   constructor(
@@ -22,6 +28,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getAllList();
+    this.userDetail = JSON.parse(sessionStorage.getItem('user_details'));
+    this.role = this.userDetail.user.role;
+    console.log(this.role);
+    this.getAllLists();
+    this.getAllTasks();
+    
     
   }
   getAllList() {
@@ -35,6 +47,28 @@ export class DashboardComponent implements OnInit {
     }, error => {
       window.location.reload();
     this.authService.enableLoader = false;      
+    })
+  }
+
+  getAllLists() {
+    this._taskService.getAllLists().subscribe(response => {
+      this.getAllListsLength = response;
+      let lastTime = response.length - 1;
+      this.lastElementAdminsList = response[lastTime];   
+      
+       
+    }, error => {
+
+    })
+  }
+
+  getAllTasks() {
+    this._taskService.getAllTasks().subscribe(response => {
+      this.getAllTasksLength = response;
+      let lastTime = response.length - 1;
+      this.lastElementAdminsTasks = response[lastTime]; 
+    }, error => {
+
     })
   }
 
