@@ -1,13 +1,13 @@
 <div class="container-fluid">
   <div class="container">
-    <div class="col-md-12 col-sm-12">
-      <img src="~/../assets/logo.png" class="img-fluid offset-md-4 logo-img" alt="Responsive image">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <img src="~/../assets/logo.png" class="img-fluid  logo-img" alt="Responsive image">
       <h1 class="text-center mt-2 ">
         Register with us & Create your tasks
       </h1>
-      <div class="col-md-8 col-sm-8 offset-md-2">
+      <div class="col-md-8 col-sm-8 col-xs-8 offset-md-2 offset-xs-0">
         <form #form="ngForm" novalidate>
-          <div class="card">
+          <div class="card register-form">
             <div class="card-body form-body">
               <div class="input-containers">
                 <label class="labels">First Name: </label><br>
@@ -51,8 +51,8 @@
                     aria-hidden="true"></i></span>
                 <span *ngIf="showpassword" (click)="hidePass()"><i class="fa fa-eye hide-pass"
                     aria-hidden="true"></i></span>
-                <input type="text" name="password" [(ngModel)]="userPassword"  #ngModel #password="ngModel" type="password" pPassword [(ngModel)]="passwordDetails"
-                  placeholder="Enter your password" [showPassword]="showpassword" required>
+                <input type="text" name="password" [(ngModel)]="userPassword"  #ngModel #password="ngModel" type="{{ showpassword ? 'text' : 'password' }}"  [(ngModel)]="passwordDetails"
+                  placeholder="Enter your password"  required>
                   <div class="text-danger font-weight-bold" *ngIf="password.invalid && form.submitted || password.touched ">
                     <p *ngIf="password.errors?.required">
                         *Password is required.
@@ -64,11 +64,11 @@
               </div>
               <div class="input-containers">
                 <label class="labels">Contact Number: </label><br>
-                <input type="text" name="contact" style="width: 520px;" placeholder="Enter your contact number" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in'}"
+                <input type="text" name="contact" class="contact-no" placeholder="Enter your contact number" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in'}"
                   (hasError)="hasError($event)" (ng2TelOutput)="getNumber($event)"
                   (intlTelInputObject)="telInputObject($event)" (countryChange)="onCountryChange($event)" required />
                 <br>
-                <span class="text-danger" *ngIf="!contactError">*Please Enter a valid Number</span>
+                <span class="text-danger" *ngIf="!contactValueError">*Please Enter a valid Number</span>
               </div>
               <div class="input-containers">
                 <label class="labels">Date of Birth: </label><br>

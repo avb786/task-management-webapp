@@ -65,3 +65,13 @@
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
   }
+
+  @media (max-width: 768px) {
+    .menu-button {
+      top: 16%;
+    }
+    .buttons {
+      position: absolute;
+      left: 60%;
+    }
+  }

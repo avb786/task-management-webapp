@@ -18,6 +18,7 @@ import {PasswordModule} from 'primeng/password';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -40,8 +41,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     PasswordModule,
     RadioButtonModule,
     MatDatepickerModule,
-    MatNativeDateModule
-
+    MatNativeDateModule,
+    ProgressSpinnerModule
 
   ],
   providers: [UserManagementService],

@@ -1,2 +1,8 @@
+<div class="loader-container" *ngIf="authService.enableLoader">
+    <p-progressSpinner class="loader" strokeWidth="4" fill="#EEEEEE" animationDuration="1s"></p-progressSpinner>
+    
+</div>
 
-<router-outlet></router-outlet>
+<ng-container>
+    <router-outlet></router-outlet>
+</ng-container>

@@ -1,12 +1,12 @@
 <div class="container list-container">
-  <div class="col-md-10 col-sm-10 border border-secondary-3">
+  <div class="col-md-10 col-sm-10 col-xs-10 border border-secondary-3">
 
     <button mat-raised-button color="warn" style="float: right;" (click)="showDialog()">Create List &nbsp; <i
         class="fa fa-plus-square" aria-hidden="true"></i></button>
     <div class="col-md-12 col-sm-12 p-3 " style="clear: both;">
       <h3 class="ml-5"> <strong>List Names:</strong> </h3>
 
-      <ul *ngFor="let list of lists; let i = index">
+      <ul class="list-main-show" *ngFor="let list of lists; let i = index">
         <a style="text-decoration: none; color: black;" routerLink="/taskView/task">
           <li id="singleList{{i}}" class="list-group-item hover-style" (click)="getTask(list._id, list.title)">
             {{list.title}}
@@ -30,7 +30,7 @@
 
 
 <p-dialog header="Create List" [(visible)]="display" [modal]="true" [style]="{width: '30%'}" [baseZIndex]="10000">
-  <form #form="ngForm" novalidate (ngSubmit)="onSubmit(form)">
+  <form #form="ngForm" novalidate>
     <mat-form-field class="list-form">
       <mat-label>List Name</mat-label>
       <input matInput type="text" minlength='4' name="listname" required #listname="ngModel" [(ngModel)]="listName">

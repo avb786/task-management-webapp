@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TaskListService } from 'src/app/services/task-list.service';
 import { APP_CONSTANTS } from "../../../../constants/app_constants";
 import { MessageService } from 'primeng/api';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
@@ -24,50 +25,51 @@ export class TaskComponent implements OnInit {
 
   constructor(
     private _taskService: TaskListService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public authService: AuthenticationService
+
   ) { }
 
   ngOnInit() {
     if (typeof (Storage) !== "undefined") {
       this.listId = sessionStorage.getItem("listId");
       this.listName = sessionStorage.getItem("list_name")
-      this.geTaskById(this.listId)
-      console.log("task id", this.listId);
+      this.geTaskById(this.listId);
       } 
   }
 
  
-  geTaskById(id){
+  geTaskById(id) {
+    this.authService.enableLoader = true;
     this._taskService.getTaskByList(id).subscribe(response => {
       this.tasks = response;
-      console.log(response);
-      
+      this.authService.enableLoader = false;  
     }, error => {
-        console.log(error);
+      this.authService.enableLoader = false;
         
     })
   }
 
   createTask(form) {
+    this.authService.enableLoader = true;
     if(form.valid) {
       const body = {};
       body[APP_CONSTANTS.TITLE] = this.taskName;
       this._taskService.createTask(body, this.listId).subscribe(response => {
       this.geTaskById(this.listId);
       this.displayCreateTask = false;
+      this.authService.enableLoader = false;
       this.showCustomTaskMessage();
         
       }, error => {
-        console.log("CREATE_TASK", error);
-        
+        this.authService.enableLoader = false;        
       })
     }
   }
 
   taskCheckedValue(taskId, taskCompleted, event) {
     const body = {};
-    body[APP_CONSTANTS.TASK_COMPLETED] = event.target.checked;
-    console.log("EVENT", event.target.checked);    
+    body[APP_CONSTANTS.TASK_COMPLETED] = event.target.checked;    
     this._taskService.updateTask(body, this.listId, taskId).subscribe(response => {
       if (response !== undefined) {
         this.geTaskById(this.listId);
@@ -79,6 +81,7 @@ export class TaskComponent implements OnInit {
   }
 
   updateTask(form1){
+    this.authService.enableLoader = true;
     if (form1.valid) {
       const body = {};
       body[APP_CONSTANTS.TITLE] = this.UpdateTaskName;
@@ -86,22 +89,24 @@ export class TaskComponent implements OnInit {
         if (response !== undefined) {
           this.UpdateDisplay = false;
           this.geTaskById(this.listId);
+          this.authService.enableLoader = false;
           this.showCustomUpdateListMessage();
         }
       }, error => {
-        console.log("CHECK-UPDATE-TASK", error);
+        this.authService.enableLoader = false;
       });
 
     }
   }
 
   deleteTaskById(taskId) {
+    this.authService.enableLoader = true;
     this._taskService.deleteTask(this.listId, taskId).subscribe(response => {
-      console.log(response);
       this.geTaskById(this.listId);
+      this.authService.enableLoader = false;
 
     }, error => {
-        console.log("DELETE-TASK", error);        
+      this.authService.enableLoader = false;       
     });
   }
 

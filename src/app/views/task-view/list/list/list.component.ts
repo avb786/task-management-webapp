@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { APP_CONSTANTS } from 'src/app/constants/app_constants';
 import { UserManagementService } from 'src/app/services/user-management.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-list',
@@ -27,18 +28,22 @@ export class ListComponent implements OnInit {
     private _taskService: TaskListService,
     private _router: Router,
     private messageService: MessageService,
-    private _userService: UserManagementService
+    private _userService: UserManagementService,
+    public authService: AuthenticationService
+
   ) { }
 
   ngOnInit() {
     this.getAllList();
   }
   getAllList() {
+    this.authService.enableLoader = true;
     this._taskService.getAllList().subscribe(response => {
       this.lists = response[0].total_lists;
+      this.authService.enableLoader = false;
+
     }, error => {
-      console.log("ERROR IN ALL LIST", error);
-      
+      this.authService.enableLoader = false;
     })
   }
 
@@ -55,6 +60,7 @@ export class ListComponent implements OnInit {
 
 
   createList(form) {
+    this.authService.enableLoader = true;
     if(form.valid) {
     const body={};
     body[APP_CONSTANTS.TITLE] = this.listName;
@@ -63,16 +69,18 @@ export class ListComponent implements OnInit {
           this.display = false;
           this.getAllList();
           this.showCustomListMessage();
+          this.authService.enableLoader = false;
           
       }
     }, error => {
-        console.log(error);
+      this.authService.enableLoader = false;
         
     });
   }
   }
 
   updateList(form) {
+    this.authService.enableLoader = true;
     if(form.valid) {
       const body = {}
       body[APP_CONSTANTS.TITLE] = this.UpdatelistName;
@@ -80,18 +88,23 @@ export class ListComponent implements OnInit {
           this.getAllList();
           this.UpdateDisplay = false;
           this.showCustomUpdateListMessage();
+          this.authService.enableLoader = false;
           
       }, error => {
-        console.log("Update", error);
+          this.authService.enableLoader = false;
+        
       })
     }
   }
 
   deleteListById(id) {
+    this.authService.enableLoader = true;
     this._taskService.deleteList(id).subscribe(response => {
       this.getAllList();
+      this.authService.enableLoader = false;
+
     }, error => {
-      console.log("Delete", error);
+      this.authService.enableLoader = false;
       
     })
   }
@@ -133,13 +146,6 @@ showUpdateDialog(title, id) {
   this.UpdatelistName = title;
   this.UpdatelistId = id;
 
-}
-onSubmit(form) {
-  if(form.valid) {
-    console.log("---",form);
-    
-    form.reset();
-  }
 }
 
 }

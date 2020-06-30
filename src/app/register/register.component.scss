@@ -1,8 +1,11 @@
 .logo-img {
     width: 30%;
     height: 10rem;
+    margin-left: 35%;
 }
-
+.contact-no{
+    width: 520px;
+}
 input{
     border-top: 0px;
     border-right: 0px;
@@ -34,4 +37,26 @@ input.terms{
     width: 10px;
     transform: scale(1.5);
     position: absolute;
+}
+@media (max-width: 768px) {
+   
+    .contact-no{
+        width: 240px;
+    }
+}
+@media (max-width: 468px) {
+   
+    .logo-img{
+        width: 60%;
+        margin-left: 15%;
+    }
+   
+}
+@media (max-width: 375px){
+    .register-form {
+        width: 17rem;
+        position: relative;
+        right: 13%;
+    }
+    
 }

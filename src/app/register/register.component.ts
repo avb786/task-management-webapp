@@ -28,6 +28,7 @@ export class RegisterComponent implements OnInit {
   public userPassword: any;
   public birthDate: any;
   public termAndCondidtion: any;
+  public contactValueError: any = true;
 
   constructor(
     private _userMgmtService: UserManagementService,
@@ -43,20 +44,15 @@ export class RegisterComponent implements OnInit {
 
   hasError($event) {
     this.contactError = $event;
-    console.log($event);
   }
   getNumber($event) {
     this.contactNumber = $event;
-    console.log("Mobil", this.contactNumber);
   }
   onCountryChange($event) {
-    this.countryChange =$event;
-    console.log(this.countryChange);
-    
+    this.countryChange =$event;    
   }
   telInputObject($event) {
     this.contactNumberInput = $event;
-    console.log(this.contactNumberInput);
     
   }
   hidePass(){
@@ -76,8 +72,18 @@ isNumber(evt) {
 addDateEvent(event: MatDatepickerInputEvent<Date>) {
   this.birthDate = event.value.toDateString();
 }
+contactBoxError() {
+  let contact_no = true;
+  if(!this.contactError) {
+    contact_no = this.contactError;
+    return contact_no;
+  }
+  return contact_no;
+
+}
 saveUserData(form) {
-  if(form.valid && this.contactError) {
+  this.contactValueError = this.contactBoxError();
+  if(form.valid && this.contactValueError ) {
     const body = {}
     body[APP_CONSTANTS.FIRST_NAME] = this.userFirstName;
     body[APP_CONSTANTS.LAST_NAME] = this.userLastName;
@@ -92,8 +98,6 @@ saveUserData(form) {
       console.log("SignUp error",error);
       
     } )
-    console.log(body);
-    
   }
   else {
     console.log("Error Submit Form", form.invalid);

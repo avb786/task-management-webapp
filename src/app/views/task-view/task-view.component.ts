@@ -3,6 +3,7 @@ import { TaskListService } from 'src/app/services/task-list.service';
 import { Router } from '@angular/router';
 import { UserManagementService } from 'src/app/services/user-management.service';
 import { MessageService } from 'primeng/api';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-task-view',
@@ -23,7 +24,8 @@ export class TaskViewComponent implements OnInit {
     private _taskService: TaskListService,
     private _userService: UserManagementService,
     private _router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public authService: AuthenticationService
   ) { }
 
   ngOnInit() {
@@ -44,10 +46,14 @@ export class TaskViewComponent implements OnInit {
   }
 
   goToLogin() {
+    this.authService.enableLoader = true;
     this._userService.userLoginOut().subscribe(response => {
       sessionStorage.clear();
       this._router.navigate(['/login']);
+      this.authService.enableLoader = false;
+
     }, error => {
+      this.authService.enableLoader = false;
       console.log("LOGOUT", error);
 
     })

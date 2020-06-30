@@ -3,6 +3,7 @@ import { UserManagementService } from '../services/user-management.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { APP_CONSTANTS } from '../constants/app_constants';
+import { AuthenticationService } from '../services/authentication.service';
 
 
 @Component({
@@ -22,7 +23,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private _userdetail: UserManagementService,
     private _router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public authService: AuthenticationService
+
   ) { }
 
   ngOnInit() {
@@ -32,6 +35,7 @@ export class LoginComponent implements OnInit {
     const body = {};
     body[APP_CONSTANTS.EMAIL] = this.userLoginId;
     body[APP_CONSTANTS.PASSWORD] = this.userLoginpass;
+    this.authService.enableLoader = true;
     this._userdetail.userLoginDetail(body).subscribe(response => {
       this.userDetail = JSON.stringify(response);
       this.userId = response;
@@ -39,6 +43,7 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem("user_id", this.userId.user.user_id);
       setTimeout(() => { 
         this._router.navigate(['/taskView']);
+        this.authService.enableLoader = false;
       }, 2000);
       
     }, error => {
@@ -48,6 +53,7 @@ export class LoginComponent implements OnInit {
       else {
         this.showCustomListMessageDeleted(error.error.error);
       }
+      this.authService.enableLoader = false;
     });
   }
 
