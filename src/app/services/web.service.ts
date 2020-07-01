@@ -1,31 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WebService {
   readonly ROOT_URL;
   readonly HERUKO_URL;
 
-  constructor(private _http: HttpClient) { 
+  constructor(private _http: HttpClient, public _route: Router) {
     this.ROOT_URL = 'http://localhost:3000/api/taskmgmt';
     this.HERUKO_URL = 'https://task-webapp.herokuapp.com/api/taskmgmt';
   }
 
-  public linkGeneration(param){
+  public linkGeneration(param) {
     // return `${this.ROOT_URL}${param}`;
     return `${this.HERUKO_URL}${param}`;
   }
-  
-
   public setHeadersWithParams() {
     let headers = new HttpHeaders();
     const authToken = JSON.parse(sessionStorage.getItem('user_details'));
-    headers = headers.set('content-type', 'application/json')
-    headers = headers.set('Authorization', 'Bearer ' + authToken.token);
-    console.log('HEADERS', headers);
-    return headers;
+    if (authToken && authToken !== null) {
+      headers = headers.set('content-type', 'application/json');
+      headers = headers.set('Authorization', 'Bearer ' + authToken.token);
+      console.log('HEADERS', headers);
+      return headers;
+    } else {
+      this._route.navigate(['./task-port']);
+    }
   }
 }
