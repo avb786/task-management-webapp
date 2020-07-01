@@ -17,6 +17,8 @@ export class DashboardComponent implements OnInit {
   public lastElementAdminsList: any;
   public getAllTasksLength: any;
   public lastElementAdminsTasks: any;
+  public lastTimeOfAllTasks: any;
+  public lastTimeOfAllLists: any;
 
 
   constructor(
@@ -53,8 +55,8 @@ export class DashboardComponent implements OnInit {
   getAllLists() {
     this._taskService.getAllLists().subscribe(response => {
       this.getAllListsLength = response;
-      let lastTime = response.length - 1;
-      this.lastElementAdminsList = response[lastTime];   
+      this.lastTimeOfAllLists = response;
+      this.lastElementAdminsList = response[this.lastTimeOfAllLists.length - 1];   
       
        
     }, error => {
@@ -65,10 +67,10 @@ export class DashboardComponent implements OnInit {
   getAllTasks() {
     this._taskService.getAllTasks().subscribe(response => {
       this.getAllTasksLength = response;
-      let lastTime = response.length - 1;
-      this.lastElementAdminsTasks = response[lastTime]; 
+      this.lastTimeOfAllTasks = response;
+      this.lastElementAdminsTasks = response[this.lastTimeOfAllTasks.length - 1]; 
     }, error => {
-
+      
     })
   }
 

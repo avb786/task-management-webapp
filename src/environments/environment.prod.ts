@@ -2,6 +2,8 @@ export const environment = {
   production: true,
   taskServiceManagement: {
     getAllList: '/lists/:userId',
+    getAllLists: '/lists',
+    getAllTasks: '/tasks',
     getAllTaskByListId: '/list/:listId/:userId/tasks',
     createList: '/create/list/:userId',
     deleteList: '/list/:listId/:userId',
