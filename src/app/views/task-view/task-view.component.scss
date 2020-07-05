@@ -145,6 +145,7 @@
     clear:both;
     margin:15px 0 0 0;
     border: solid .8px lightgrey;
+    background-color: white;
   }
   .menu li {
     font-size:12px;
@@ -167,4 +168,8 @@
   /* hover profile show menu */
   .profile:hover .menu {
     display:block;
+  }
+
+  @media (max-width: 320px) {
+    .profile-wrapper { right: 0px;}
   }

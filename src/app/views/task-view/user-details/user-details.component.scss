@@ -23,3 +23,9 @@ label {
 .button-groups {
     margin-left: 30%;
 }
+
+@media (max-width: 768px) {
+    .button-groups {
+        margin-left: 0%;
+    } 
+}
