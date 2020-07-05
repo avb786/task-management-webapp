@@ -6,15 +6,10 @@
           <span class="text-primary">Port</span></h1>
       </a>
     </div>
-    <div class="col-xs-6 col-md-4 buttons">
-      <p>
-        <span *ngIf="signinButt"> <button type="button" mat-flat-button color="warn">Sign in <i class="fa fa-sign-in fa-lg"
-            aria-hidden="true"></i></button></span>
-        <span *ngIf = "loginButt"><button type="button" routerLink="/login" mat-flat-button class="text-white ml-2 bg-primary">Login <i
-            class="fa fa-user" aria-hidden="true"></i></button></span>
-        <button type="button" (click)="goToLogin()" mat-flat-button class="text-white ml-2 bg-primary">Logout <i
-            class="fa fa-user" aria-hidden="true"></i></button>
-      </p>
+    <div class="col-xs-6 col-md-4 buttons" style="z-index: 0;">
+        <!-- <button type="button" (click)="goToLogin()" mat-flat-button class="text-white ml-2 bg-primary">Logout <i
+            class="fa fa-user" aria-hidden="true"></i></button> -->
+     
     </div>
   </div>
 
@@ -50,3 +45,20 @@
 
 <p-toast styleClass="custom-toast" key="custom" position="bottom-center"
   [showTransformOptions]="'translateX(-100%)'"></p-toast>
+
+  <ul class="profile-wrapper" >
+    <li>
+      <!-- user profile -->
+      <div class="profile">
+        <img src="http://gravatar.com/avatar/0e1e4e5e5c11835d34c0888921e78fd4?s=80" />
+        <a class="name">{{userFirstName}} {{userLastName}}</a>
+        
+        <!-- more menu -->
+        <ul class="menu" >
+          <li><a (click)="goToUser()">Profile Details</a></li>
+          <li><a href="#">Change Password</a></li>
+          <li><a (click)="goToLogin()">Log out</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>

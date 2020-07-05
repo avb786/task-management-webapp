@@ -75,3 +75,96 @@
       left: 60%;
     }
   }
+  ul, li {
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+  a {text-decoration:none;}
+  
+  .profile-wrapper {
+    width: 200px;
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    z-index: 9999;
+
+  }
+  .profile-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    border-color: #333 transparent transparent;
+    border-width: 6px;
+    border-style: solid;
+    
+  }
+  .profile-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    border-color: #eee transparent transparent;
+    border-width: 6px;
+    border-style: solid;
+  }
+  .profile-wrapper:hover::after {
+    border-color: #111 transparent transparent;	
+  }
+  
+  .profile {
+    padding:10px;
+    border-radius:3px;
+  }
+  .profile:hover {
+    cursor:pointer;
+    // background-color: rgb(247, 242, 242);
+  }
+  .profile .name {
+    font-size:12px;
+    line-height:26px;
+    margin-left:10px;
+  }
+  .profile .name:hover {
+    color : black;
+    
+  }
+  .profile img {
+    width:25px;
+    display:inline;
+    float:left;
+    border:1px solid #111;
+    border-radius:3px;
+    
+  }
+  
+  /* hide menu */
+  .menu {
+    display:none;
+    clear:both;
+    margin:15px 0 0 0;
+    border: solid .8px lightgrey;
+  }
+  .menu li {
+    font-size:12px;
+    margin:0;
+    padding: 10px 4px;
+  }
+  .menu li a {
+    color:#555;
+  }
+
+  .menu li:hover > a{
+    color:rgb(255, 251, 251);
+  }
+  
+  .menu li:hover{
+    border-radius: 3px;
+    background-color: lightgrey;
+  }
+  
+  /* hover profile show menu */
+  .profile:hover .menu {
+    display:block;
+  }

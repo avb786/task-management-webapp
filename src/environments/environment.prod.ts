@@ -15,6 +15,7 @@ export const environment = {
     userSignin: '/signin' ,
     userSignOut: '/signout',
     getUserDetail: '/user/:userId',
-    userSignUp: '/signup'
+    userSignUp: '/signup',
+    updateUser: '/user/:userId'
   }
 };

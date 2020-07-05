@@ -47,4 +47,13 @@ export class UserManagementService {
       return response;
     }));
   }
+
+  updateUserDetails(body) {
+    let putUrl = this._webService.linkGeneration(environment.UserManagement.updateUser);
+    putUrl = putUrl.replace(':userId', this.user_id)
+    return this._http.put(putUrl, body, { headers : this._webService.setHeadersWithParams() })
+    .pipe(map(response => {
+      return response;
+    }));
+  }
 }

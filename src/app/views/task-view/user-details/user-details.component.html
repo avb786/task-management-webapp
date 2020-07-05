@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="col-md-6 col-sm-8 col-xs-12 border full-container">
+        <h1 class="text-center ">
+           Profile Details
+          </h1>
+
+          <div class="col-md-12 col-sm-8 col-xs-8 offset-xs-0">
+              <form #form="ngForm">
+            <div class="input-containers">
+                <label class="labels">First Name: </label><br>
+                <input type="text" name="firstName" pattern="[a-zA-Z][a-zA-Z ]+" [(ngModel)]="userFirstName" required #ngModel #fname="ngModel" placeholder="Enter your first name">
+                <div class="text-danger font-weight-bold" *ngIf="fname.invalid && form.submitted || fname.touched ">
+                    <p *ngIf="fname.errors?.required">
+                        *First name is required.
+                    </p>
+                    <p *ngIf="fname.errors?.pattern">
+                        *Only Alphabets are allowed with atleast 2 char.
+                    </p>
+                </div>
+              </div>
+
+              <div class="input-containers">
+                <label class="labels">Last Name: </label><br>
+                <input type="text" name="LastName" pattern="[a-zA-Z][a-zA-Z ]+" [(ngModel)]="userLastName" required #ngModel #lname="ngModel" placeholder="Enter your last name" required>
+                <div class="text-danger font-weight-bold" *ngIf="lname.invalid && form.submitted || lname.touched ">
+                    <p *ngIf="lname.errors?.required">
+                        *Last name is required.
+                    </p>
+                    <p *ngIf="lname.errors?.pattern">
+                        *Only Alphabets are allowed with atleast 2 char.
+                    </p>
+                </div>
+              </div>
+
+              <div class="input-containers">
+                <label class="labels">Email Address: </label><br>
+                <input type="text" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [(ngModel)]="userEmailName"  #ngModel #email="ngModel" name="email" placeholder="Enter your Email" required>
+                <div class="text-danger font-weight-bold" *ngIf="email.invalid && form.submitted || email.touched ">
+                    <p *ngIf="email.errors?.required">
+                        *Email address is required.
+                    </p>
+                    <p *ngIf="email.errors?.pattern">
+                        *Enter a valid email address.(<small><b>joe@abc.com</b></small>)
+                    </p>
+                </div>  
+            </div>
+
+            <div class="input-containers">
+                <label class="labels">Contact Number: </label><br>
+                <input type="text" name="contact" class="contact-no" placeholder="Enter your contact number" [(ngModel)]="phoneReq" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in'}"
+                  (hasError)="hasError($event)" (ng2TelOutput)="getNumber($event)"
+                  (intlTelInputObject)="telInputObject($event)" (countryChange)="onCountryChange($event)" required />
+                <br>
+                <span class="text-danger" *ngIf="!contactValueError">*Please Enter a valid Number</span>
+              </div>
+
+              <div class="input-containers">
+                <label class="labels">Select your gender: </label><br>
+                <div class="p-grid" style="width:250px;margin-bottom:10px;font-size: 17px;">
+                  <div class="p-col-12 mt-2">
+                    <p-radioButton name="gender" value="male" label="Male" [(ngModel)]="genderValue" inputId="preopt1">
+                    </p-radioButton>
+                  </div>
+                  <div class="p-col-12 mt-2">
+                    <p-radioButton name="gender" value="female" label="Female" [(ngModel)]="genderValue"
+                      inputId="preopt2"></p-radioButton>
+                  </div>
+                  <div class="p-col-12 mt-2">
+                    <p-radioButton name="gender" value="others" label="Others" [(ngModel)]="genderValue"
+                      inputId="preopt3"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="button-groups">
+                <button class="btn bg-secondary text-white">Cancel</button>
+                <button class="btn bg-primary text-white ml-3" (click)="updateUserDetails(form)">Update</button>
+              </div>
+             
+            </form>
+          </div>
+    </div>
+</div>

@@ -24,7 +24,6 @@ export class WebService {
     if (authToken && authToken !== null) {
       headers = headers.set('content-type', 'application/json');
       headers = headers.set('Authorization', 'Bearer ' + authToken.token);
-      console.log('HEADERS', headers);
       return headers;
     } else {
       this._route.navigate(['./task-port']);

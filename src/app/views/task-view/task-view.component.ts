@@ -13,12 +13,14 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class TaskViewComponent implements OnInit {
 
-  lists: any;
+  public lists: any;
   public listLength: any;
   public logOutMsg: any;
-  public user: string;
+  public user: any;
   public signinButt: any = true;
   public loginButt: any = true;
+  public userLastName: any;
+  public userFirstName: any;
 
   constructor(
     private _taskService: TaskListService,
@@ -29,11 +31,8 @@ export class TaskViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user = sessionStorage.getItem('user_details');
-    if(this.user) {
-      this.signinButt = false;
-      this.loginButt = false;
-    }
+    this.user = JSON.parse(sessionStorage.getItem('user_details'));
+    this.getUserDetails();  
   }
   openNav() {
     document.getElementById("mySidenav").style.width = "250px";
@@ -43,6 +42,19 @@ export class TaskViewComponent implements OnInit {
     document.getElementById("mySidenav").style.width = "0px";
     document.getElementById("menubtn").style.display = "block";
 
+  }
+  
+  goToUser() {
+    this._router.navigate(['/taskView/userDetails'])
+  }
+
+  getUserDetails() {
+    this._userService.getUserDetail().subscribe(response => {
+      this.userFirstName = response[0].name;
+      this.userLastName = response[0].lastname;
+    }, error => {
+      
+    });
   }
 
   goToLogin() {

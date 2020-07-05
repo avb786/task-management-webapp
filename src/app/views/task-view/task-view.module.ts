@@ -19,10 +19,13 @@ import {ToastModule} from 'primeng/toast';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import {Ng2TelInputModule} from 'ng2-tel-input';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 
 @NgModule({
-  declarations: [TaskViewComponent, ListComponent, TaskComponent, DashboardComponent],
+  declarations: [TaskViewComponent, ListComponent, TaskComponent, DashboardComponent, UserDetailsComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -35,10 +38,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     TooltipModule,
     ToastModule,
     MatCheckboxModule,
-    MatSidenavModule
-    
-    
-    
+    MatSidenavModule,
+    Ng2TelInputModule,
+    RadioButtonModule 
+        
   ],
   providers: [TaskListService, WebService]
 })
