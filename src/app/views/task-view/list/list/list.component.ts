@@ -23,6 +23,7 @@ export class ListComponent implements OnInit {
   public UpdateDisplay: boolean;
   public UpdatelistName: any;
   public UpdatelistId: any;
+  public roleName: any;
 
   constructor(
     private _taskService: TaskListService,
@@ -34,7 +35,27 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getAllList();
+    this.roleName =JSON.parse(sessionStorage.getItem('user_details'));
+    this.roleName = this.roleName.user.role;
+    console.log("this.roleName", this.roleName);
+    
+    if(this.roleName === 'ADMIN') {
+      this.getAllListForAdmin();
+    } else {
+      this.getAllList();
+    }
+  }
+
+  getAllListForAdmin() {
+    this.authService.enableLoader = true;
+    this._taskService.getAllLists().subscribe(response => {
+      console.log("getAllListForAdmin", response);
+      
+      this.lists = response;
+      this.authService.enableLoader = false;
+    }, error => {
+    this.authService.enableLoader = false;
+    });
   }
   getAllList() {
     this.authService.enableLoader = true;
@@ -67,7 +88,11 @@ export class ListComponent implements OnInit {
     this._taskService.createList(body).subscribe(response => {
       if(response !== undefined) {
           this.display = false;
-          this.getAllList();
+          if(this.roleName === 'ADMIN') {
+            this.getAllListForAdmin();
+          } else{
+            this.getAllList();
+          }
           this.showCustomListMessage();
           this.authService.enableLoader = false;
           

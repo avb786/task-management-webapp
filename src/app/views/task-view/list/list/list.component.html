@@ -4,12 +4,14 @@
     <button mat-raised-button color="warn" style="float: right;" (click)="showDialog()">Create List &nbsp; <i
         class="fa fa-plus-square" aria-hidden="true"></i></button>
     <div class="col-md-12 col-sm-12 p-3 " style="clear: both;">
-      <h3 class="ml-5"> <strong>List Names:</strong> </h3>
+      <h3 class="ml-5" *ngIf="roleName === 'USER'"> <strong>List Names:</strong> </h3>
+      <h3 class="ml-5"  *ngIf="roleName === 'ADMIN'"> <strong>List Names of Users</strong> </h3>
 
       <ul class="list-main-show" *ngFor="let list of lists; let i = index">
         <a style="text-decoration: none; color: black;" routerLink="/taskView/task">
           <li id="singleList{{i}}" class="list-group-item hover-style" (click)="getTask(list._id, list.title)">
             {{list.title}}
+            <span class="badge badge-primary user-list" *ngIf="roleName === 'ADMIN'">User: {{list.user_creator_id}}</span>
           </li>
         </a>
         <div class="btn-group update-delete-button" role="group" aria-label="Basic example">
