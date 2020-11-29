@@ -30,8 +30,8 @@ export class TaskViewComponent implements OnInit {
     public authService: AuthenticationService
   ) { }
 
-  ngOnInit() {
-    this.user = JSON.parse(sessionStorage.getItem('user_details'));
+  async ngOnInit() {
+    this.user = await JSON.parse(sessionStorage.getItem('user_details'));
     this.getUserDetails();  
   }
   openNav() {
