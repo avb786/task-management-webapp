@@ -71,5 +71,10 @@ export class TaskViewComponent implements OnInit {
     })
   }
 
+  changeTheme() {
+    const d = document.getElementsByTagName('body')[0].classList.toggle("dark-mode");;
+    
+  }
+
   
 }

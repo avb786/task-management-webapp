@@ -37,8 +37,6 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.roleName =JSON.parse(sessionStorage.getItem('user_details'));
     this.roleName = this.roleName.user.role;
-    console.log("this.roleName", this.roleName);
-    
     if(this.roleName === 'ADMIN') {
       this.getAllListForAdmin();
     } else {
@@ -49,8 +47,6 @@ export class ListComponent implements OnInit {
   getAllListForAdmin() {
     this.authService.enableLoader = true;
     this._taskService.getAllLists().subscribe(response => {
-      console.log("getAllListForAdmin", response);
-      
       this.lists = response;
       this.authService.enableLoader = false;
     }, error => {
@@ -94,8 +90,9 @@ export class ListComponent implements OnInit {
             this.getAllList();
           }
           this.showCustomListMessage();
+          this.listName = null;
           this.authService.enableLoader = false;
-          
+          form.onReset();
       }
     }, error => {
       this.authService.enableLoader = false;
@@ -110,7 +107,11 @@ export class ListComponent implements OnInit {
       const body = {}
       body[APP_CONSTANTS.TITLE] = this.UpdatelistName;
       this._taskService.UpdateList(body, this.UpdatelistId).subscribe(response => {
+        if(this.roleName === 'ADMIN') {
+          this.getAllListForAdmin();
+        } else{
           this.getAllList();
+        }
           this.UpdateDisplay = false;
           this.showCustomUpdateListMessage();
           this.authService.enableLoader = false;
@@ -125,7 +126,11 @@ export class ListComponent implements OnInit {
   deleteListById(id) {
     this.authService.enableLoader = true;
     this._taskService.deleteList(id).subscribe(response => {
-      this.getAllList();
+      if(this.roleName === 'ADMIN') {
+        this.getAllListForAdmin();
+      } else{
+        this.getAllList();
+      }
       this.authService.enableLoader = false;
 
     }, error => {

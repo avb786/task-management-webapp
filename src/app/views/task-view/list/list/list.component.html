@@ -40,7 +40,7 @@
       <button mat-button *ngIf="listName" matSuffix mat-icon-button aria-label="Clear" (click)="listName=''"><i
           class="fa fa-times" aria-hidden="true"></i></button>
     </mat-form-field>
-    <div *ngIf="listname.invalid && form.submitted || (listname.dirty || listname.touched && form.submitted)"
+    <div *ngIf="listname.invalid && form.submitted || (listname.dirty && form.submitted)"
       class="errors font-weight-bold text-danger">
 
       <div *ngIf="listname.errors?.required">
