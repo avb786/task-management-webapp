@@ -22,10 +22,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import {RadioButtonModule} from 'primeng/radiobutton';
+// import { HighlightDirective } from 'src/app/custom-directives/highlight.directive';
+import { BomberGameComponent } from './bomber-game/bomber-game.component';
+
 
 
 @NgModule({
-  declarations: [TaskViewComponent, ListComponent, TaskComponent, DashboardComponent, UserDetailsComponent],
+  declarations: [TaskViewComponent, ListComponent, TaskComponent, DashboardComponent, UserDetailsComponent, BomberGameComponent],
   imports: [
     CommonModule,
     FormsModule,
