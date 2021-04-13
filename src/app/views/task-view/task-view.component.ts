@@ -21,6 +21,7 @@ export class TaskViewComponent implements OnInit {
   public loginButt: any = true;
   public userLastName: any;
   public userFirstName: any;
+  image: string;
 
   constructor(
     private _taskService: TaskListService,
@@ -52,6 +53,7 @@ export class TaskViewComponent implements OnInit {
     this._userService.getUserDetail().subscribe(response => {
       this.userFirstName = response[0].name;
       this.userLastName = response[0].lastname;
+      this.image= response[0].profile_image ? `https://task-webapp.herokuapp.com/public/img/user/${response[0].profile_image}` : 'https://cdn3.vectorstock.com/i/1000x1000/30/97/flat-business-man-user-profile-avatar-icon-vector-4333097.jpg';
     }, error => {
       
     });

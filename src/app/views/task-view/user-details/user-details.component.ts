@@ -23,6 +23,7 @@ export class UserDetailsComponent implements OnInit {
   public phoneReq: any;
   public countryCode: any;
   public genderValue: any = 'male';
+  public image: any;
 
 
 
@@ -46,6 +47,8 @@ export class UserDetailsComponent implements OnInit {
   getUserDetails() {
     this._authService.enableLoader = true;
     this._userService.getUserDetail().subscribe(response => {
+      this.image= response[0].profile_image ? `https://task-webapp.herokuapp.com/public/img/user/${response[0].profile_image}` : 'https://cdn3.vectorstock.com/i/1000x1000/30/97/flat-business-man-user-profile-avatar-icon-vector-4333097.jpg';
+      // this.image=`http://localhost:3000/public/img/user/${response[0].profile_image}`
       this.userFirstName = response[0].name;
       this.userLastName = response[0].lastname;
       this.userEmailName = response[0].email;

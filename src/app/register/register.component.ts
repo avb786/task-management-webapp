@@ -29,7 +29,8 @@ export class RegisterComponent implements OnInit {
   public birthDate: any;
   public termAndCondidtion: any;
   public contactValueError: any = true;
-
+  public userImage:any;
+  public selectedImage: File;
   constructor(
     private _userMgmtService: UserManagementService,
     private _router: Router,
@@ -84,6 +85,8 @@ contactBoxError() {
 saveUserData(form) {
   this.contactValueError = this.contactBoxError();
   if(form.valid && this.contactValueError ) {
+
+    const formData: any = new FormData();
     const body = {}
     body[APP_CONSTANTS.FIRST_NAME] = this.userFirstName;
     body[APP_CONSTANTS.LAST_NAME] = this.userLastName;
@@ -92,7 +95,9 @@ saveUserData(form) {
     body[APP_CONSTANTS.CONTACT] = this.contactNumber;
     body[APP_CONSTANTS.DOB] = this.birthDate;
     body[APP_CONSTANTS.GENDER] = this.genderValue;
-    this._userMgmtService.userSignUp(body).subscribe(response => {
+    formData.append('user_data', JSON.stringify(body));
+    formData.append('profileImage',  this.selectedImage);
+    this._userMgmtService.userSignUp(body, formData).subscribe(response => {
        this.showCustomListMessageDeleted(APP_CONSTANTS.SUCCESS_USER_CREATED);
     }, error => {
       console.log("SignUp error",error);
@@ -110,6 +115,20 @@ showCustomListMessageDeleted(msg) {
   setTimeout(() =>{ 
     this._router.navigate(['./login']);   
   }, 2000);
+}
+
+onFileChange(event) {
+  this.userImage;
+  if (event.target.files && event.target.files[0]) { // check is any file is there
+    const reader = new FileReader(); 
+    const file = event.target.files[0] // Get first file as we are not allowing multiple image
+    // in case of multiple image use loop on event.target.files and use below code in loop
+    reader.onload = (events: any) => { // process to render image at UI for preview
+      this.userImage = events.target.result; // get Image to show at UI
+      this.selectedImage = file; // get binary image
+    };
+    reader.readAsDataURL(file);
+  }
 }
  
 

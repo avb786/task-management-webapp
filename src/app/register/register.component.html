@@ -10,6 +10,19 @@
           <div class="card register-form">
             <div class="card-body form-body">
               <div class="input-containers">
+                <label class="labels">Upload Image </label><br>
+                <input type="file" name="profileimg"   (change)="onFileChange($event)" ngModel #profile="ngModel" placeholder="Upload your image">
+                <div class="text-danger font-weight-bold" *ngIf="profile.invalid && form.submitted || profile.touched ">
+                  <p *ngIf="profile.errors?.required">
+                      *Profile Pic is required.
+                  </p>
+                 
+              </div>
+              </div>
+              <div class="form-group text-center" *ngIf="userImage">
+                <img [src]="userImage" height="200px" width="200px" class="z-depth-0 text-center">
+              </div>
+              <div class="input-containers">
                 <label class="labels">First Name: </label><br>
                 <input type="text" name="firstName" pattern="[a-zA-Z][a-zA-Z ]+" [(ngModel)]="userFirstName" required #ngModel #fname="ngModel" placeholder="Enter your first name">
                 <div class="text-danger font-weight-bold" *ngIf="fname.invalid && form.submitted || fname.touched ">

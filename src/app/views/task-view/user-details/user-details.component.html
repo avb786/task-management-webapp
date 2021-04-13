@@ -7,6 +7,9 @@
           <div class="col-md-12 col-sm-12 col-xs-12 offset-xs-0">
               <form #form="ngForm">
             <div class="input-containers">
+              <div class="text-center">
+                <img [src]="image" width="150" height="150" class="rounded-circle img-thumbnail" alt="profile_pic" />
+              </div>
                 <label class="labels">First Name: </label><br>
                 <input type="text" name="firstName" pattern="[a-zA-Z][a-zA-Z ]+" [(ngModel)]="userFirstName" required #ngModel #fname="ngModel" placeholder="Enter your first name">
                 <div class="text-danger font-weight-bold" *ngIf="fname.invalid && form.submitted || fname.touched ">

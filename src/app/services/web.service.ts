@@ -23,6 +23,7 @@ export class WebService {
     const authToken = JSON.parse(sessionStorage.getItem('user_details'));
     if (authToken && authToken !== null) {
       headers = headers.set('content-type', 'application/json');
+      headers = headers.set('Content-type', 'application/x-www-form-urlencoded');
       headers = headers.set('Authorization', 'Bearer ' + authToken.token);
       return headers;
     } else {

@@ -40,9 +40,9 @@ export class UserManagementService {
     }));
   }
 
-  userSignUp(body) {
+  userSignUp(body, formData) {
     let postUrl = this._webService.linkGeneration(environment.UserManagement.userSignUp);
-    return this._http.post(postUrl, body)
+    return this._http.post(postUrl, formData, { headers : this._webService.setHeadersWithParams() } )
     .pipe(map(response => {
       return response;
     }));
