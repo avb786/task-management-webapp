@@ -18,12 +18,12 @@ export class WebService {
     // return `${this.ROOT_URL}${param}`;
     return `${this.HERUKO_URL}${param}`;
   }
-  public setHeadersWithParams() {
+  public setHeadersWithParams(isFormData?) {
     let headers = new HttpHeaders();
     const authToken = JSON.parse(sessionStorage.getItem('user_details'));
     if (authToken && authToken !== null) {
       headers = headers.set('content-type', 'application/json');
-      headers = headers.set('Content-type', 'application/x-www-form-urlencoded');
+    if(isFormData)  headers = headers.set('Content-type', 'application/x-www-form-urlencoded');
       headers = headers.set('Authorization', 'Bearer ' + authToken.token);
       return headers;
     } else {

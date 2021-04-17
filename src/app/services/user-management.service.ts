@@ -41,8 +41,9 @@ export class UserManagementService {
   }
 
   userSignUp(body, formData) {
+    const isFormData = true;
     let postUrl = this._webService.linkGeneration(environment.UserManagement.userSignUp);
-    return this._http.post(postUrl, formData, { headers : this._webService.setHeadersWithParams() } )
+    return this._http.post(postUrl, formData, { headers : this._webService.setHeadersWithParams(isFormData) } )
     .pipe(map(response => {
       return response;
     }));
