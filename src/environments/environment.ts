@@ -20,7 +20,10 @@ export const environment = {
     userSignOut: '/signout',
     getUserDetail: '/user/:userId',
     userSignUp: '/signup',
-    updateUser: '/user/:userId'
+    updateUser: '/user/:userId',
+    oauthSignin: '/oauth/signin',
+    oauthGoogleSignup: '/oauth/google/signup',
+    oauthGoogleCallback: '/oauth/google/callback'
   }
 };
 

@@ -23,6 +23,14 @@ export class UserManagementService {
     }));
   }
 
+  userGoogleLogin() {
+    let getUrl = this._webService.linkGeneration(environment.UserManagement.oauthGoogleSignup);
+    return this._http.get(getUrl)
+    .pipe(map(response => {
+      return response;
+    }));
+  }
+
   getUserDetail() {
     let getUrl = this._webService.linkGeneration(environment.UserManagement.getUserDetail);
     getUrl = getUrl.replace(':userId', this.user_id);

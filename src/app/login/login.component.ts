@@ -71,6 +71,27 @@ export class LoginComponent implements OnInit {
   showCustomListMessageDeleted(error) {
     this.messageService.add({ key: 'custom_delete', severity: 'error', detail: error, summary: 'ERROR' });
   }
+
+  loginWithGoogle() {
+    this._userdetail.userGoogleLogin().subscribe(response => {
+      this.userDetail = JSON.stringify(response);
+      this.userId = response;
+      sessionStorage.setItem("user_details", this.userDetail);
+      sessionStorage.setItem("user_id", this.userId.user.user_id);
+      setTimeout(() => { 
+        this._router.navigate(['/taskView']);
+        this.authService.enableLoader = false;
+      }, 2000);
+    }, error => {
+      if (error.error.error_loactaion === 'body') {
+        this.showCustomListMessageDeleted(error.error.error_msg);
+      }
+      else {
+        this.showCustomListMessageDeleted(error.error.error);
+      }
+      this.authService.enableLoader = false;
+    })
+  }
   
   gotoRegister() {
     this._router.navigate(['./register']);
